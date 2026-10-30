@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  fsevents: true
+  unrs-resolver: true
+storeDir: .sites-runtime/pnpm-store
+verifyDepsBeforeRun: false

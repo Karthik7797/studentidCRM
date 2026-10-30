@@ -1,0 +1,4 @@
+'use client';
+import {Combobox,ComboboxInput,ComboboxContent,ComboboxList,ComboboxItem,ComboboxEmpty} from '@/components/ui/combobox';
+import type {RecordItem} from '@/lib/crm-model';
+export function StudentPicker({value,onChange,leads,disabled}:any){const ids=leads.map((r:RecordItem)=>r.id);const labels:Record<string,string>=Object.fromEntries(leads.map((r:RecordItem)=>[r.id,r.data.name+' · '+(r.data.email||r.data.country)]));return <Combobox items={ids} value={value||null} onValueChange={(v:string|null)=>onChange(v||'')} itemToStringLabel={(id:string)=>labels[id]||id}><ComboboxInput aria-label="Student" placeholder="Search a student…" disabled={disabled} showClear/><ComboboxContent><ComboboxEmpty>No students found</ComboboxEmpty><ComboboxList>{(id:string)=><ComboboxItem key={id} value={id}>{labels[id]}</ComboboxItem>}</ComboboxList></ComboboxContent></Combobox>}

@@ -1,0 +1,104 @@
+{
+  "architecture": "static-ui",
+  "entry": "app/main.tsx",
+  "runtime": "Vite React SPA",
+  "nodes": [
+    {
+      "id": "entry",
+      "files": [
+        "index.html",
+        "app/main.tsx",
+        "vite.config.ts"
+      ],
+      "dependsOn": [
+        "crm",
+        "portal",
+        "data"
+      ]
+    },
+    {
+      "id": "crm",
+      "files": [
+        "app/crm.tsx",
+        "app/suite-context.tsx"
+      ],
+      "dependsOn": [
+        "data",
+        "workspaces",
+        "components"
+      ]
+    },
+    {
+      "id": "portal",
+      "files": [
+        "app/portal/portal-client.tsx"
+      ],
+      "dependsOn": [
+        "data",
+        "components"
+      ]
+    },
+    {
+      "id": "workspaces",
+      "files": [
+        "app/commission-workspace.tsx",
+        "app/department-workspace.tsx",
+        "app/engagement-workspace.tsx",
+        "app/founder-command-center.tsx",
+        "app/intelligence-workspace.tsx",
+        "app/marketing-workspace.tsx",
+        "app/people-workspace.tsx",
+        "app/social-hub.tsx",
+        "app/student-flow.tsx",
+        "app/suite-admin.tsx",
+        "app/suite-admissions.tsx",
+        "app/suite-context.tsx",
+        "app/suite-leads.tsx",
+        "app/suite-operations.tsx",
+        "app/suite-ui.tsx"
+      ],
+      "dependsOn": [
+        "data",
+        "models",
+        "components"
+      ]
+    },
+    {
+      "id": "data",
+      "files": [
+        "lib/static-data.ts",
+        "lib/static-fixtures.ts"
+      ],
+      "dependsOn": [
+        "models"
+      ]
+    },
+    {
+      "id": "models",
+      "files": [
+        "lib/crm-model.ts",
+        "lib/department-model.ts",
+        "lib/engagement-model.ts",
+        "lib/founder-model.ts",
+        "lib/intelligence-model.ts",
+        "lib/sms-model.ts",
+        "lib/social-model.ts",
+        "lib/student-flow-model.ts",
+        "lib/suite-model.ts"
+      ],
+      "dependsOn": []
+    },
+    {
+      "id": "components",
+      "directory": "components",
+      "dependsOn": [
+        "models"
+      ]
+    }
+  ],
+  "verification": [
+    "scripts/verify-static-ui.mjs",
+    "tsc --noEmit",
+    "vite build"
+  ]
+}

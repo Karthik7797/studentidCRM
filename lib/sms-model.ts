@@ -1,0 +1,3 @@
+const gsmBasic=new Set(Array.from('@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !"#¤%&\'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà'));
+const gsmExtended=new Set(Array.from('^{}\\[~]|€\f'));
+export function smsSegments(body:string){let units=0,unicode=false;for(const c of Array.from(body)){if(gsmBasic.has(c))units++;else if(gsmExtended.has(c))units+=2;else {unicode=true;break;}}if(unicode)units=body.length;const single=unicode?70:160,multipart=unicode?67:153;return {encoding:unicode?'UCS-2 / Unicode':'GSM-7',units,segments:units===0?0:units<=single?1:Math.ceil(units/multipart),singleLimit:single,multipartLimit:multipart};}

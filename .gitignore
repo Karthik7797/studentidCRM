@@ -1,0 +1,10 @@
+node_modules/
+ui-dist/
+*.tsbuildinfo
+.env*
+*.log
+.DS_Store
+.agents/
+.codex/
+.sites-runtime/
+.pnpm-store/
