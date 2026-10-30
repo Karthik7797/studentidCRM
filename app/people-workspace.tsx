@@ -5,12 +5,13 @@ import React,{useEffect,useState,useCallback} from 'react';
 import {Plus,Users,ShieldCheck,Building2,Target,Bot,Copy,Link2,RefreshCw,UserX,ArrowRight,CheckCircle2} from 'lucide-react';
 import {Dialog,DialogContent,DialogDescription,DialogHeader,DialogTitle} from '@/components/ui/dialog';
 import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from '@/components/ui/table';
+import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
 import {useSuite} from './suite-context';
 import {toast} from 'sonner';
 import {MODULES,ACTIONS,SCOPES,METRICS,defaultPermissionProfiles} from '@/lib/intelligence-model';
 export const personDefaults={name:'',email:'',baseRole:'Staff',status:'Pending invitation',permissionProfileId:'permission-counsellor',primaryDepartment:'Sales',additionalDepartments:[],teams:[],jobRoles:['role-counsellor'],managerEmail:'',branch:'Chennai',timezone:'Asia/Kolkata',language:'English',startDate:'',startHour:9,endHour:18,weekdays:[1,2,3,4,5],aiEnabled:true,destinations:[]};
 export function IField({label,children,wide=false}:any){return <label className={'intel-field '+(wide?'wide':'')}><span>{label}</span>{children}</label>;}
-export function ISelect({label,value,options,onChange,...rest}:any){return <select aria-label={label} value={value??''} onChange={e=>onChange(e.target.value)} {...rest}>{options.map((o:any)=>typeof o==='string'?<option key={o} value={o}>{o||'Choose…'}</option>:<option key={o.value} value={o.value}>{o.label}</option>)}</select>;}
+export function ISelect({label,value,options,onChange,...rest}:any){const items=options.map((o:any)=>typeof o==='string'?{value:o,label:o||'Choose…'}:o);return <Select value={value||'__empty'} onValueChange={v=>onChange(v==='__empty'?'':v)} disabled={rest.disabled}><SelectTrigger aria-label={label} className={rest.className}><SelectValue placeholder={label}/></SelectTrigger><SelectContent position="popper">{items.map((o:any)=><SelectItem key={o.value||'__empty'} value={o.value||'__empty'}>{o.label}</SelectItem>)}</SelectContent></Select>;}
 export function IPanel({title,detail,actions,children}:any){return <section className="panel intel-panel"><div className="intel-panel-head"><div><h3>{title}</h3>{detail&&<p>{detail}</p>}</div>{actions&&<div className="button-row">{actions}</div>}</div>{children}</section>;}
 export function IBadge({children,tone=''}:any){return <span className={'intel-badge '+tone}>{children}</span>;}
 const post=async(body:any)=>{const r=await staticFetch('/api/people',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d:any=await r.json();if(!r.ok)throw Error(d.error||'Could not save administration changes.');return d;};

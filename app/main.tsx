@@ -1,4 +1,5 @@
 import React from 'react';
+import {MotionConfig} from 'motion/react';
 import {createRoot} from 'react-dom/client';
 import CRM from './crm';
 import Portal from './portal/portal-client';
@@ -17,4 +18,4 @@ import './orbit.css';
 const path=window.location.pathname;
 const department=['sales','operations','hr','marketing'].find(v=>path==='/'+v);
 document.addEventListener('click',event=>{const link=(event.target as Element).closest?.('a');if(link?.getAttribute('href')?.startsWith('/api/')){event.preventDefault();staticDownload(link.getAttribute('href')!);}});
-createRoot(document.getElementById('root')!).render(<AppearanceProvider><div style={{padding:'5px 16px',background:'#dce9d9',color:'#23352b',fontSize:12}}>UI preview · fictional local data · changes reset when you reload</div>{path==='/portal'||path==='/join'?<Portal/>:<CRM initialView={(department||'overview') as any} initialPlatform={path.split('/')[2]||''}/>}</AppearanceProvider>);
+createRoot(document.getElementById('root')!).render(<MotionConfig reducedMotion="user" transition={{type:'spring',bounce:0,visualDuration:.24}}><AppearanceProvider>{path==='/portal'||path==='/join'?<Portal/>:<CRM initialView={(department||'overview') as any} initialPlatform={path.split('/')[2]||''}/>}</AppearanceProvider></MotionConfig>);

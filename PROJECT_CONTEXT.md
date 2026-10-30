@@ -12,6 +12,7 @@ Read this first. Source is authoritative. This project is now a standalone Vite 
 - lib/static-data.ts replaces API/auth/database/provider operations with in-memory UI contracts. STATIC UI comments document each replaced boundary. Unsupported provider actions report preview feedback.
 - lib/*-model.ts retain browser-safe types, validation, calculations and constants used by the screens.
 - components/, hooks/, vendor/ and public/ retain only UI dependencies and assets. app/orbit.css loads last.
+- components/ui/app-select.tsx adapts option-based fields to the shared Radix Select. hooks/use-workspace-motion.ts handles short navigation feedback and scroll reset; the entry point supplies MotionConfig with system reduced-motion support. Sidebar navigation folds below 1024px.
 
 ## Preview semantics
 
