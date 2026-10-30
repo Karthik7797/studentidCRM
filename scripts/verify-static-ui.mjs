@@ -13,6 +13,7 @@ try {
  for(const path of ['/api/suite?scope=demo','/api/intelligence?scope=demo','/api/people','/api/departments?scope=demo&department=hr','/api/student-flow?scope=demo&leadId=demo-flow-student','/api/student-flow?scope=demo&mode=finance','/api/portal?scope=demo','/api/engagement?scope=demo'])await call(path);
  const portal=await call('/api/portal?scope=demo');assert.equal(typeof portal.completion.percent,'number');assert.ok(portal.shortlists.every(r=>r.snapshot&&r.id));
  const people=await call('/api/people');assert.ok(people.actor.canOrgConfigure);assert.ok(people.users.every(u=>u.data));
+ assert.ok(people.objects.filter(o=>o.type==='permissionProfile').every(o=>o.data?.name&&o.data?.rules));
  const founder=await call('/api/founder?scope=demo');assert.ok(founder.settings.preferences.cards.length);assert.ok(founder.metrics.length);
  const ai=await call('/api/intelligence',{scope:'demo',action:'askAgent',message:'What next?'});assert.match(ai.data.answer.briefing,/Static preview/);
  const noDelivery=await staticFetch('/api/engagement',{method:'POST',body:JSON.stringify({scope:'demo',action:'queueCampaign'})});assert.equal(noDelivery.status,400);

@@ -22,7 +22,7 @@ const profile={name:'Demo Admin',email:'admin@example.com',primaryDepartment:'Sa
 const rules=Object.fromEntries(MODULES.map(m=>[m,{scope:'Organization',actions:[...ACTIONS]}]));
 const user={id:'preview-admin',name:profile.name,email:profile.email,role:'Admin',profile,access:{managed:false,version:1,profile,rules,aliases:[profile.name,profile.email],teamAliases:[]}};
 const roles=[{id:'role-counsellor',type:'jobRole',data:baseRole('role-counsellor','Student counsellor','Sales','Review student enquiries and plan the next step.')}];
-const objects=[...roles,...defaultPermissionProfiles().map((r:Row)=>({type:'permissionProfile',...r})),...DEPARTMENTS.map((name,i)=>({id:'department-'+i,type:'department',data:{name,active:true}}))].map(r=>wrap(r));
+const objects=[...roles,...defaultPermissionProfiles().map((r:Row)=>({id:r.id,type:'permissionProfile',data:{name:r.name,description:r.description,rules:r.rules}})),...DEPARTMENTS.map((name,i)=>({id:'department-'+i,type:'department',data:{name,active:true}}))].map(r=>wrap(r));
 // STATIC UI: Optional role preview preserves the founder dashboard without login.
 if(typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('role')==='founder'){profile.jobRoles=['role-founder'];roles[0]={id:'role-founder',type:'jobRole',data:baseRole('role-founder','Founder','Sales','Review business priorities and student progress.')};}
 const people:Row[]=[{...profile,role:'Admin',status:'Active',access_version:1,data:structuredClone(profile)}];

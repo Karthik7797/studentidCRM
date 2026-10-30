@@ -4,6 +4,7 @@ import {createRoot} from 'react-dom/client';
 import CRM from './crm';
 import Portal from './portal/portal-client';
 import {AppearanceProvider} from '@/components/appearance';
+import {AppErrorBoundary} from '@/components/ui/app-error-boundary';
 import {staticDownload} from '@/lib/static-data';
 import './globals.css';
 import './social.css';
@@ -16,6 +17,6 @@ import './glass.css';
 import './orbit.css';
 // STATIC UI: Browser routing replaces server pages and authentication redirects.
 const path=window.location.pathname;
-const department=['sales','operations','hr','marketing'].find(v=>path==='/'+v);
+const initialView=path.split('/')[1]||'overview';
 document.addEventListener('click',event=>{const link=(event.target as Element).closest?.('a');if(link?.getAttribute('href')?.startsWith('/api/')){event.preventDefault();staticDownload(link.getAttribute('href')!);}});
-createRoot(document.getElementById('root')!).render(<MotionConfig reducedMotion="user" transition={{type:'spring',bounce:0,visualDuration:.24}}><AppearanceProvider>{path==='/portal'||path==='/join'?<Portal/>:<CRM initialView={(department||'overview') as any} initialPlatform={path.split('/')[2]||''}/>}</AppearanceProvider></MotionConfig>);
+createRoot(document.getElementById('root')!).render(<MotionConfig reducedMotion="user" transition={{type:'spring',bounce:0,visualDuration:.24}}><AppearanceProvider><AppErrorBoundary>{path==='/portal'||path==='/join'?<Portal/>:<CRM initialView={initialView as any} initialPlatform={path.startsWith('/marketing/')?path.split('/')[2]||'':''}/>}</AppErrorBoundary></AppearanceProvider></MotionConfig>);

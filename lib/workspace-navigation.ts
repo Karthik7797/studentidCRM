@@ -4,11 +4,12 @@ export function workspaceHref(
   view: string,
   context: Record<string, string | undefined> = {},
 ) {
-  const department = ['sales', 'operations', 'hr'].includes(view);
-  const query = new URLSearchParams(department ? {} : {view});
-  query.set('workspace', scope);
+  const query = new URLSearchParams();
+  if (scope === 'live') query.set('workspace', scope);
   for (const [key, value] of Object.entries(context)) {
     if (value && key !== 'workspace' && key !== 'view') query.set(key, value);
   }
-  return `${department ? '/' + view : '/'}?${query}`;
+  const path = view === 'overview' ? '/' : `/${view}`;
+  const search = query.toString();
+  return search ? `${path}?${search}` : path;
 }

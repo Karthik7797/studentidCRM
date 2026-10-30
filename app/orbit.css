@@ -291,6 +291,33 @@ body .intel-news-disclosure>.intel-panel{margin:0;border:0;border-top:1px solid 
 body .intel-news-disclosure>.intel-panel>.intel-panel-head{display:none}
 @media(max-width:900px){body .intel-dashboard-columns{grid-template-columns:1fr}}
 @media(max-width:600px){body .overview-switch{display:flex;width:100%}body .overview-switch button{flex:1;padding-inline:8px}body .intel-news-disclosure>summary{padding:16px 18px}}
+
+/* One quiet keyboard focus treatment; avoid nested rings around text fields. */
+body :is(button,a,input,select,textarea,[tabindex]):focus-visible,
+body [data-slot=select-trigger]:focus-visible,
+body button.workload-stat:focus-visible,
+body .overview-switch button:focus-visible{outline:none!important;outline-offset:0!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--ring) 40%,transparent)}
+body :is(input,textarea,select):focus-visible{box-shadow:none!important;border-color:color-mix(in srgb,var(--ring) 55%,var(--border))!important}
+body .global-search:focus-within{outline:none!important;border-color:color-mix(in srgb,var(--ring) 38%,var(--border));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ring) 28%,transparent)}
+body .global-search input:focus-visible{outline:none!important;border:0!important;box-shadow:none!important}
+body .student-sheet [data-slot=tabs-trigger]:focus-visible{box-shadow:none!important;background:color-mix(in srgb,var(--primary) 10%,transparent)}
+
+/* Editor content lines up with its header and footer at every size. */
+body .record-dialog.intel-editor:not(.intel-record-dialog) .intel-editor-body{padding:4px 26px 24px}
+body .record-dialog.intel-editor:not(.intel-record-dialog) .intel-form-grid{min-width:0}
+body .record-dialog.people-inline-dialog{padding-bottom:24px!important}
+body .record-dialog.people-inline-dialog>:not([data-slot=dialog-header]):not([data-slot=dialog-close]){margin-inline:26px}
+body .record-dialog.people-inline-dialog>.button-row{flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:600px){
+  body .record-dialog.intel-editor:not(.intel-record-dialog){width:calc(100vw - 24px)!important;max-width:calc(100vw - 24px)!important}
+  body .record-dialog.intel-editor:not(.intel-record-dialog) .intel-editor-body{padding:4px 20px 20px}
+  body .record-dialog.people-inline-dialog>:not([data-slot=dialog-header]):not([data-slot=dialog-close]){margin-inline:20px}
+}
+body .app-recovery{min-height:100svh;display:grid;place-items:center;padding:24px;background:var(--background)}
+body .app-recovery>div{width:min(100%,480px);padding:32px;border:1px solid var(--border);border-radius:20px;background:var(--card)}
+body .app-recovery h1{font-size:24px;letter-spacing:-.03em}
+body .app-recovery p{margin:10px 0 24px;color:var(--muted-foreground);line-height:1.6}
+body .app-recovery .button-row{flex-wrap:wrap}
 @media(max-width:600px){
   body .record-dialog.intel-record-dialog{width:calc(100vw - 24px)!important}
   body .intel-record-dialog [data-slot=dialog-header]{padding:0 20px 17px!important}

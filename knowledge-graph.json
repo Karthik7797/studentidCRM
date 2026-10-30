@@ -8,7 +8,8 @@
       "files": [
         "index.html",
         "app/main.tsx",
-        "vite.config.ts"
+        "vite.config.ts",
+        "vercel.json"
       ],
       "dependsOn": [
         "crm",
@@ -21,6 +22,7 @@
       "files": [
         "app/crm.tsx",
         "app/suite-context.tsx",
+        "lib/workspace-navigation.ts",
         "hooks/use-workspace-motion.ts",
         "hooks/use-mobile.ts"
       ],
@@ -93,6 +95,7 @@
     {
       "id": "components",
       "directory": "components",
+      "files": ["components/ui/app-error-boundary.tsx"],
       "dependsOn": [
         "models"
       ]
